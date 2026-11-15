@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/34886809/README.md)
+
 # Hamed Samy Salon
 
 Bilingual (Egyptian Arabic / English) website for a two-branch men's barbershop in Giza, Egypt. It takes a customer from a Google search to a booked appointment on WhatsApp, with no backend and no build step.
