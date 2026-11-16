@@ -29,6 +29,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-4X679F4EK4');
+  gtag('config', 'AW-18571756931'); /* Google Ads */
 </script>
 <title>Hamed Samy Salon | حجز مواعيد</title>
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,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">
@@ -811,7 +812,8 @@ function buildWAMsg(p){
   m+='\n_تم الإرسال من الموقع الإلكتروني_';
   return m;
 }
-function trackEvent(n,p){try{if(typeof window.gtag==='function'){window.gtag('event',n,p||{});}}catch(e){}}
+var ADS_ID='AW-18571756931', ADS_LABEL=''; /* paste the Google Ads conversion label here once the conversion action exists */
+function trackEvent(n,p){try{if(typeof window.gtag==='function'){window.gtag('event',n,p||{});if(n==='generate_lead'&&ADS_LABEL){window.gtag('event','conversion',{send_to:ADS_ID+'/'+ADS_LABEL});}}}catch(e){}}
 function openWA(m){if(!m){trackEvent('whatsapp_click',{event_category:'contact',event_label:'direct'});}window.open('https://wa.me/201064242050'+(m?'?text='+encodeURIComponent(m):''),'_blank');}
 function submitBooking(){var m=buildWAMsg('f-');if(m){trackEvent('generate_lead',{event_category:'booking',event_label:'form',branch:(document.getElementById('f-branch')||{}).value||''});openWA(m);showToast();}}
 function submitModal(){var m=buildWAMsg('m-');if(m){trackEvent('generate_lead',{event_category:'booking',event_label:'modal',branch:(document.getElementById('m-branch')||{}).value||''});closeModal();openWA(m);showToast();}}
