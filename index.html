@@ -812,7 +812,7 @@ function buildWAMsg(p){
   m+='\n_تم الإرسال من الموقع الإلكتروني_';
   return m;
 }
-var ADS_ID='AW-18571756931', ADS_LABEL=''; /* paste the Google Ads conversion label here once the conversion action exists */
+var ADS_ID='AW-18571756931', ADS_LABEL='FJ0QCM_Z37kdEIOL2pdF'; /* Google Ads conversion label for "Booking form submitted" */
 function trackEvent(n,p){try{if(typeof window.gtag==='function'){window.gtag('event',n,p||{});if(n==='generate_lead'&&ADS_LABEL){window.gtag('event','conversion',{send_to:ADS_ID+'/'+ADS_LABEL});}}}catch(e){}}
 function openWA(m){if(!m){trackEvent('whatsapp_click',{event_category:'contact',event_label:'direct'});}window.open('https://wa.me/201064242050'+(m?'?text='+encodeURIComponent(m):''),'_blank');}
 function submitBooking(){var m=buildWAMsg('f-');if(m){trackEvent('generate_lead',{event_category:'booking',event_label:'form',branch:(document.getElementById('f-branch')||{}).value||''});openWA(m);showToast();}}
