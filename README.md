@@ -1,4 +1,3 @@
-
 # Hamed Samy Salon
 
 Bilingual (Egyptian Arabic / English) website for a two-branch men's barbershop in Giza, Egypt. It takes a customer from a Google search to a booked appointment on WhatsApp, with no backend and no build step.
@@ -28,11 +27,12 @@ Problems that were solved on this project and are worth a look in the code:
 | Gallery arrows jumped two photos on phones. | The step is now computed from the real item width plus the track's computed gap (not a hard-coded value), the seamless loop is re-normalized on every tap, and taps made during a running smooth scroll build on the pending target instead of the mid-flight position. |
 | Native `<select>` dropdowns showed a stray white column in Firefox on large windows. | Caused by a transformed ancestor (the scroll-reveal animation). The booking section and its form groups are excluded from transforms and filters. |
 | Infinite gallery without visible resets. | The photo set is duplicated once. A `requestAnimationFrame` loop advances `scrollLeft` and subtracts one loop width when it passes the midpoint. |
+| Hero video needed a tap to start on phones. | Browsers block autoplay in some modes (iOS Low Power Mode, in-app browsers). The video is a separate H.264 file with no audio track and a poster frame, and the script keeps retrying and listening for a real gesture (`touchend`, `click`) until playback has actually started. |
 | Arabic letters disconnected under wide letter-spacing. | Letter-spacing and uppercase transforms are disabled for RTL labels. |
 
 ## Tech stack
 
-- HTML5, CSS3 (custom properties, grid, flexbox, logical properties) and vanilla JavaScript. No framework, bundler or dependencies.
+- HTML5, CSS3 (custom properties, grid, flexbox, logical properties) and vanilla JavaScript. No framework, bundler or dependencies. Deployed as static files.
 - Google Fonts: Cairo (Arabic and Latin text), Bebas Neue and Anton (display).
 - Booking hand-off through the WhatsApp click-to-chat link (`wa.me`).
 - `IntersectionObserver` for scroll reveals and for the floating button.
@@ -41,7 +41,7 @@ Problems that were solved on this project and are worth a look in the code:
 
 - Title, meta description and keywords in Arabic and English, canonical URL, Open Graph tags and a social preview image (`og-image.png`).
 - Favicon set (`favicon.ico`, `favicon-32x32.png`, `apple-touch-icon.png`).
-- Google Search Console ownership verification and Google Analytics 4. The floating button reports a `book_now_click` event.
+- Google Search Console ownership verification and Google Analytics 4. Custom events: `book_now_click` (every Book button, labelled by source), `generate_lead` (fires only when the booking form validates and hands off to WhatsApp, used as the Google Ads conversion) and `whatsapp_click`.
 
 ## Deployment
 
@@ -58,7 +58,10 @@ python3 -m http.server 8000
 
 ```
 .
-├── index.html            # the whole site: markup, styles and scripts
+├── index.html            # markup, styles and scripts
+├── assets/
+│   ├── hero.mp4          # hero background video (H.264, no audio, streamable)
+│   └── hero-poster.jpg   # poster frame shown until the video starts
 ├── og-image.png          # social sharing preview
 ├── favicon.ico
 ├── favicon-32x32.png
@@ -68,7 +71,7 @@ python3 -m http.server 8000
 
 ## Known trade-offs and next steps
 
-- `index.html` is about 10 MB because photos, the hero video and the logo are embedded as base64. That keeps the site to one deployable file, but it slows the first load on mobile data. The next step is moving media to separate WebP and MP4 files with lazy loading.
+- The gallery photos and logo are still embedded in `index.html` as base64 (about 1.5 MB). Moving them to separate WebP files with lazy loading is the next performance step. The hero video was already moved out into `assets/`, which cut the page from about 10.8 MB to 1.5 MB.
 - Bookings are requests sent over WhatsApp, so there is no availability check or calendar. A real booking backend would be the next feature if the salon wants one.
 
 ## Credits
